@@ -14,7 +14,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, minimum-scale=1, user-scalable=no">
     <title>DartPower Team LLC</title>
     <meta name="description" content="DartPower Team LLC Site">
     <meta name="keywords" content="dartpower,dartpower team,dpt,dpteam,doom,brutal doom,zandronum,zdoom,gzdoom,simpson-nekek">
@@ -22,15 +22,10 @@
     <link rel="shortcut icon" href="images/dpt_favicon.png">
     <meta name="theme-color" content="#0088FF">
     <link rel="stylesheet" href="css/bootstrap.css">
-    <style>
-        body {
-            padding-top: 50px;
-            padding-bottom: 20px;
-        }
-    </style>
     <link rel="stylesheet" href="css/bootstrap-theme.css">
-    <link rel="stylesheet" type="text/css" href="common-font.css" />
-    <link rel="stylesheet" type="text/css" href="index-style.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="common-font.css">
+    <link rel="stylesheet" type="text/css" href="common.css">
     <link rel="stylesheet" type="text/css" href="failsafe.css">
     <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
     <script src="jquery-1.8.3.min.js"></script>
@@ -40,12 +35,9 @@
             height: 100%;
         }
         body {
-            margin: 0;
-            padding: 0;
-            text-align: center;
+            padding-top: 50px;
+            padding-bottom: 20px;
             font-family: "Helvetica Neue";
-            font-size: 12px;
-            color: #fff;
             background-size: cover;
             background-position: center;
             -moz-font-smoothing: antialiased;
@@ -53,7 +45,7 @@
         }
     </style>
 </head>
-<body>
+<body id="index">
     <!--[if lt IE 7]>
 	<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
 	<![endif]-->
@@ -61,8 +53,94 @@
         <iframe frameborder="0" height="100%" width="100%" src="index-module-starfield.html"></iframe>
     </div>
     <div id="dpt-site-body">
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">DartPower Team LLC</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a data-index="1" href="index-main.html" class="active">Home</a></li>
+                        <li><a data-index="2" href="index-about.html">About</a></li>
+                        <li><a data-index="3" href="index-contact.html">Contact</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">[DPT] Servers</a></li>
+                                <li><a href="https://kiwiirc.com/client/irc.kiwiirc.com/?nick=Guest|?#dpteam">DartPower Team Chat</a></li>
+                                <li class="divider"></li>
+                                <li class="dropdown-header">Other projects:</li>
+                                <li><a href="http://simpson-nekek.narod.ru/wads/">WADs Repository</a></li>
+                                <li><a href="http://simpson-nekek.narod.ru/repo/">ZDooM Resources Repository</a></li>
+                            </ul>
+                        </li>
+                        <li><a data-index="4" href="https://github.com/dartpower">Github</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper">
+            <div class="main">
+                    <div class="page_container">
+                        <div class="jumbotron">
+                            <div class="container">
+                                <figure id="slider">
+                                    <div class="container">
+                                        <img src="images/slider_placeholder_1.png" alt="Temporary Placeholder">
+                                        <img src="images/slider_placeholder_2.png" alt="Temporary Placeholder">
+                                        <img src="images/slider_placeholder_3.png" alt="Temporary Placeholder">
+                                        <img src="images/slider_placeholder_4.png" alt="Temporary Placeholder">
+                                        <img src="images/slider_placeholder_5.png" alt="Temporary Placeholder">
+                                    </div>
+                                    <figcaption></figcaption>
+                                    <!-- slideshow caption -->
+                                    <nav id="slider-nav"></nav>
+                                    <!-- navigation -->
+                                </figure>
+                                <h1>DartPower Team LLC</h1>
+                                <p>DartPower Team - Innovative team based on the creation of software as well as the creation of modifications for ZDooM-Based Ports. We also present the game-clan, we play in Zandronum.</p>
+                                <p><a class="btn btn-default" href="index-about.html">Learn more &raquo;</a></p> <!-- btn_dpt btn btn-primary btn-lg -->
+                            </div>
+                        </div>
+                        <div class="container">
+                            <!-- Example row of columns -->
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <h2>WADs Repository</h2>
+                                    <p><b>WAD</b> (which, according to the Doom Bible, is an acrostic for "Where's All the Data?") is the file format used by Doom and all Doom-engine-based games for storing data. A WAD file consists of a header, a directory, and the data lumps that make up the resources stored within the file.
+                                    </p>
+                                    <p><a class="btn btn-default" href="http://simpson-nekek.narod.ru/wads/">View details &raquo;</a></p>
+                                </div>
+                                <div class="col-lg-4">
+                                    <h2>ZDooM Resources Repository</h2>
+                                    <p> Any resources for ZDooM-Based ports. DECORATE & ACS, etc...</p>
+                                    <p><a class="btn btn-default" href="http://simpson-nekek.narod.ru/repo/">View details &raquo;</a></p>
+                                </div>
+                                <div class="col-lg-4">
+                                    <h2>Clan Rules</h2>
+                                    <p> [Coming Soon] </p>
+                                    <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
+                                </div>
+                            </div>
+                            <hr>
+                            <footer>
+                                <p><a class="special-link" href="index-contact.html">DartPower Team LLC &copy; 2018</a></p>
+                            </footer>
+                        </div>
+                    </div>
+            </div>
+        </div>
+        <!-- /container -->
+        <script src="js/vendor/bootstrap.min.js"></script>
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
     </div>
-    <script>
+    <!-- <script>
         $(function() {
             $.failsafe({
                 checkUrl: 'failsafe.css',
@@ -70,6 +148,6 @@
                 chargeThreshold: 80
             });
         });
-    </script>
+    </script> -->
 </body>
 </html>

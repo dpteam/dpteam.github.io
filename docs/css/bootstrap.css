@@ -4932,7 +4932,10 @@ a.list-group-item.active > .badge,
   font-weight: 200;
   line-height: 2.1428571435;
   color: inherit;
-  background-color: #eeeeee;
+  background-color: #bde0ff;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#bde0ff), to(#57b0ff));
+  background-image: -moz-linear-gradient(#bde0ff, #57b0ff);
+  background-repeat: no-repeat;
 }
 
 .jumbotron h1 {
