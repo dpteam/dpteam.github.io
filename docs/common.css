@@ -49,7 +49,7 @@
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
     -webkit-transiton: .2s all linear;
 }
-#index h2 {
+.col-lg-4 h2 {
 	letter-spacing: 0.04em;
 	display:inline-block;
     color: #fff;
