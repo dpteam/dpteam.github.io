@@ -1,5 +1,3 @@
-# DartPower Team official site: dpteam.github.io
-
 Mirror from simpson-nekek.narord.ru / dartpower.tk 
 
 Link: https://dpteam.github.io 
