@@ -4934,7 +4934,7 @@ a.list-group-item.active > .badge,
   color: inherit;
   background-color: #bde0ff;
   /* default */
-  background-image: -webkit-gradient(linear, 0 0, 0 0%, from(#bde0ff), to(#57b0ff));
+  /* background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#bde0ff), to(#57b0ff)); */
   /* try */
   /* background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(189,224,255,0.1)), to(rgba(87,176,255,0.1))); */
   /* background-image: -webkit-gradient(linear, 0 0, 0 100%, rgba(189,224,255,0.1)), rgba(87,176,255,0.1))); */
