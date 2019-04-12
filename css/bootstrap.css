@@ -4554,11 +4554,9 @@ textarea.input-group-sm > .input-group-btn > .btn {
   background-color: #ffffff;
 }
 
-@navbar-gradient-start-color: #FC5C7D;
-@navbar-gradient-stop-color: #6A82FB;
 .navbar-inverse .navbar-collapse,
 .navbar-inverse .navbar-form {
-  border-color: #gradient > .vertical( @navbar-gradient-start-color,@navbar-gradient-stop-color);
+  border-color:  -webkit-gradient(linear, 0 0, 0 0%, from(#FC5C7D), to(#6A82FB));
 }
 
 .navbar-inverse .navbar-nav > .open > a,
