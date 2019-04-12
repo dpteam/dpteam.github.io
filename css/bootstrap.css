@@ -4381,8 +4381,10 @@ textarea.input-group-sm > .input-group-btn > .btn {
   }
 }
 
+@navbar-gradient-start-color: #004400;
+@navbar-gradient-stop-color: #009900;
 .navbar-default {
-  background-color: #f8f8f8;
+  #gradient > .vertical( @navbar-gradient-start-color,@navbar-gradient-stop-color);
   border-color: #e7e7e7;
 }
 
