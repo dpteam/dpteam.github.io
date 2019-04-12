@@ -4382,8 +4382,8 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-default {
-  background-color: #f8f8f8;
-  border-color: #e7e7e7;
+  background-color: -webkit-gradient(linear, 0 0, 0 0%, from(#FC5C7D), to(#6A82FB));
+  border-color: -webkit-gradient(linear, 0 0, 0 0%, from(#FC5C7D), to(#6A82FB));
 }
 
 .navbar-default .navbar-brand {
