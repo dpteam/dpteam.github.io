@@ -4381,10 +4381,8 @@ textarea.input-group-sm > .input-group-btn > .btn {
   }
 }
 
-@navbar-gradient-start-color: #FC5C7D;
-@navbar-gradient-stop-color: #6A82FB;
 .navbar-default {
-  #gradient > .vertical( @navbar-gradient-start-color,@navbar-gradient-stop-color);
+  background-color: #f8f8f8;
   border-color: #e7e7e7;
 }
 
@@ -4500,8 +4498,10 @@ textarea.input-group-sm > .input-group-btn > .btn {
   color: #333333;
 }
 
+@navbar-gradient-start-color: #FC5C7D;
+@navbar-gradient-stop-color: #6A82FB;
 .navbar-inverse {
-  background-color: #222222;
+  #gradient > .vertical( @navbar-gradient-start-color,@navbar-gradient-stop-color);
   border-color: #080808;
 }
 
