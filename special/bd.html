@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="stylesheet prefetch" href="https://codepad.co/css/normalize.min.css" />
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+        }
+        
+        *,
+        ::before,
+        ::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+        
+        body {
+            align-items: center;
+            background-color: #fde7fd;
+            display: flex;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+            -webkit-font-smoothing: none;
+            justify-content: center;
+            min-height: 100vh
+        }
+        
+        .spin {
+            perspective: 500px;
+            position: relative;
+            transform-style: preserve-3d
+        }
+        
+        .spin-group {
+            animation: 1.8s ease-in-out infinite alternate both spin-group;
+            display: block;
+            line-height: .8;
+            text-align: center;
+            transform-style: preserve-3d;
+            will-change: transform
+        }
+        
+        .spin-group-text {
+            color: #ff79ff;
+            font-size: 75px;
+            font-weight: 700;
+            text-shadow: -1px 0 #3f2e53, 1px 0 #3f2e53, 0 -1px #04e7fe;
+            will-change: transform
+        }
+        
+        .spin-group-text:nth-child(n+2) {
+            position: absolute;
+            top: 0;
+            left: 0
+        }
+        
+        .spin-group-text:nth-child(2) {
+            transform: translateZ(1px)
+        }
+        
+        .spin-group-text:nth-child(3) {
+            transform: translateZ(2px)
+        }
+        
+        .spin-group-text:nth-child(4) {
+            transform: translateZ(3px)
+        }
+        
+        .spin-group-text:nth-child(5) {
+            transform: translateZ(4px)
+        }
+        
+        .spin-group-text:nth-child(6) {
+            transform: translateZ(5px)
+        }
+        
+        .spin-group-text:nth-child(7) {
+            transform: translateZ(6px)
+        }
+        
+        .spin-group-text:nth-child(8) {
+            transform: translateZ(7px)
+        }
+        
+        .spin-group-text:nth-child(9) {
+            transform: translateZ(8px)
+        }
+        
+        .spin-group-text:nth-child(10) {
+            transform: translateZ(9px)
+        }
+        
+        .spin-group-text:nth-child(11) {
+            transform: translateZ(10px)
+        }
+        
+        .spin-group-text:nth-child(12) {
+            transform: translateZ(11px)
+        }
+        
+        .spin-group-text:nth-child(13) {
+            transform: translateZ(12px)
+        }
+        
+        .spin-group-text:nth-child(14) {
+            transform: translateZ(13px)
+        }
+        
+        .spin-group-text:nth-child(15) {
+            transform: translateZ(14px)
+        }
+        
+        .spin-group-text:nth-child(16) {
+            transform: translateZ(15px)
+        }
+        
+        .spin-group-text:nth-child(17) {
+            transform: translateZ(16px)
+        }
+        
+        .spin-group-text:nth-child(18) {
+            transform: translateZ(17px)
+        }
+        
+        .spin-group-text:nth-child(19) {
+            transform: translateZ(18px)
+        }
+        
+        .spin-group-text:nth-child(20) {
+            transform: translateZ(19px)
+        }
+        
+        @keyframes spin-group {
+            from {
+                transform: rotateY(-10deg) rotateX(-20deg)
+            }
+            to {
+                transform: rotateY(10deg) rotateX(-20deg)
+            }
+        }
+        
+        .snowflake {
+            color: #04e7fe;
+            font-size: 1.5em;
+            font-family: Arial, sans-serif;
+            text-shadow: 0 0 5px #000;
+        }
+        
+        @-webkit-keyframes snowflakes-fall {
+            0% {
+                top: -10%;
+            }
+            100% {
+                top: 100%;
+            }
+        }
+        
+        @-webkit-keyframes snowflakes-shake {
+            0% {
+                -webkit-transform: translateX(0px);
+                transform: translateX(0px);
+            }
+            50% {
+                -webkit-transform: translateX(80px);
+                transform: translateX(80px);
+            }
+            100% {
+                -webkit-transform: translateX(0px);
+                transform: translateX(0px);
+            }
+        }
+        
+        @keyframes snowflakes-fall {
+            0% {
+                top: -10%;
+            }
+            100% {
+                top: 100%;
+            }
+        }
+        
+        @keyframes snowflakes-shake {
+            0% {
+                transform: translateX(0px);
+            }
+            50% {
+                transform: translateX(80px);
+            }
+            100% {
+                transform: translateX(0px);
+            }
+        }
+        
+        .snowflake {
+            position: fixed;
+            top: -10%;
+            z-index: 9999;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            cursor: default;
+            -webkit-animation-name: snowflakes-fall, snowflakes-shake;
+            -webkit-animation-duration: 10s, 3s;
+            -webkit-animation-timing-function: linear, ease-in-out;
+            -webkit-animation-iteration-count: infinite, infinite;
+            -webkit-animation-play-state: running, running;
+            animation-name: snowflakes-fall, snowflakes-shake;
+            animation-duration: 10s, 3s;
+            animation-timing-function: linear, ease-in-out;
+            animation-iteration-count: infinite, infinite;
+            animation-play-state: running, running;
+        }
+        
+        .snowflake:nth-of-type(0) {
+            left: 1%;
+            -webkit-animation-delay: 0s, 0s;
+            animation-delay: 0s, 0s;
+        }
+        
+        .snowflake:nth-of-type(1) {
+            left: 10%;
+            -webkit-animation-delay: 1s, 1s;
+            animation-delay: 1s, 1s;
+        }
+        
+        .snowflake:nth-of-type(2) {
+            left: 20%;
+            -webkit-animation-delay: 6s, 0.5s;
+            animation-delay: 6s, 0.5s;
+        }
+        
+        .snowflake:nth-of-type(3) {
+            left: 30%;
+            -webkit-animation-delay: 4s, 2s;
+            animation-delay: 4s, 2s;
+        }
+        
+        .snowflake:nth-of-type(4) {
+            left: 40%;
+            -webkit-animation-delay: 2s, 2s;
+            animation-delay: 2s, 2s;
+        }
+        
+        .snowflake:nth-of-type(5) {
+            left: 50%;
+            -webkit-animation-delay: 8s, 3s;
+            animation-delay: 8s, 3s;
+        }
+        
+        .snowflake:nth-of-type(6) {
+            left: 60%;
+            -webkit-animation-delay: 6s, 2s;
+            animation-delay: 6s, 2s;
+        }
+        
+        .snowflake:nth-of-type(7) {
+            left: 70%;
+            -webkit-animation-delay: 2.5s, 1s;
+            animation-delay: 2.5s, 1s;
+        }
+        
+        .snowflake:nth-of-type(8) {
+            left: 80%;
+            -webkit-animation-delay: 1s, 0s;
+            animation-delay: 1s, 0s;
+        }
+        
+        .snowflake:nth-of-type(9) {
+            left: 90%;
+            -webkit-animation-delay: 3s, 1.5s;
+            animation-delay: 3s, 1.5s;
+        }
+        
+        .snowflake:nth-of-type(10) {
+            left: 25%;
+            -webkit-animation-delay: 2s, 0s;
+            animation-delay: 2s, 0s;
+        }
+        
+        .snowflake:nth-of-type(11) {
+            left: 65%;
+            -webkit-animation-delay: 4s, 2.5s;
+            animation-delay: 4s, 2.5s;
+        }
+    </style>
+
+</head>
+
+<body>
+    <p class='spin'>
+        <span class='spin-group'>
+    <span class='spin-group-text'>
+      С днем рождения,<br/>Ольга Владимировна!
+    </span>
+        <span class='spin-group-text'>
+      С днем рождения,<br/>Ольга Владимировна!
+    </span>
+        <span class='spin-group-text'>
+      С днем рождения,<br/>Ольга Владимировна!
+    </span>
+        <span class='spin-group-text'>
+      С днем рождения,<br/>Ольга Владимировна!
+    </span>
+        <span class='spin-group-text'>
+      С днем рождения,<br/>Ольга Владимировна!
+    </span>
+        <span class='spin-group-text'>
+      С днем рождения,<br/>Ольга Владимировна!
+    </span>
+        <span class='spin-group-text'>
+      С днем рождения,<br/>Ольга Владимировна!
+    </span>
+        <span class='spin-group-text'>
+      С днем рождения,<br/>Ольга Владимировна!
+    </span>
+        <span class='spin-group-text'>
+      С днем рождения,<br/>Ольга Владимировна!
+    </span>
+        <span class='spin-group-text'>
+      С днем рождения,<br/>Ольга Владимировна!
+    </span>
+        <span class='spin-group-text'>
+      С днем рождения,<br/>Ольга Владимировна!
+    </span>
+        <span class='spin-group-text'>
+      С днем рождения,<br/>Ольга Владимировна!
+    </span>
+        <span class='spin-group-text'>
+      С днем рождения,<br/>Ольга Владимировна!
+    </span>
+        <span class='spin-group-text'>
+      С днем рождения,<br/>Ольга Владимировна!
+    </span>
+        <span class='spin-group-text'>
+      С днем рождения,<br/>Ольга Владимировна!
+    </span>
+        <span class='spin-group-text'>
+      С днем рождения,<br/>Ольга Владимировна!
+    </span>
+        <span class='spin-group-text'>
+      С днем рождения,<br/>Ольга Владимировна!
+    </span>
+        <span class='spin-group-text'>
+      С днем рождения,<br/>Ольга Владимировна!
+    </span>
+        <span class='spin-group-text'>
+      С днем рождения,<br/>Ольга Владимировна!
+    </span>
+        <span class='spin-group-text'>
+      С днем рождения,<br/>Ольга Владимировна!
+    </span>
+        </span>
+    </p>
+    <div class="snowflakes" aria-hidden="true">
+        <div class="snowflake">
+            😁
+        </div>
+        <div class="snowflake">
+            😃
+        </div>
+        <div class="snowflake">
+            😁
+        </div>
+        <div class="snowflake">
+            😃
+        </div>
+        <div class="snowflake">
+            😁
+        </div>
+        <div class="snowflake">
+            😃
+        </div>
+        <div class="snowflake">
+            😁
+        </div>
+        <div class="snowflake">
+            😃
+        </div>
+        <div class="snowflake">
+            😁
+        </div>
+        <div class="snowflake">
+            😃
+        </div>
+        <div class="snowflake">
+            😁
+        </div>
+        <div class="snowflake">
+            😃
+        </div>
+    </div>
+</body>
+
+</html>
