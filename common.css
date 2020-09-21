@@ -63,6 +63,7 @@ body{SCROLLBAR-FACE-COLOR:#698091;SCROLLBAR-SHADOW-COLOR:black;SCROLLBAR-HIGHLIG
 	-webkit-transiton: .2s all linear;
 }
 p {
+	font: bold 12px/1 "Roboto Condensed", Arial, sans-serif;
 	letter-spacing: 0.04em;
 	color: #fff;
 	font-weight: bold;
