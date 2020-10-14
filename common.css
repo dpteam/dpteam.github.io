@@ -111,3 +111,5 @@ body {
 	-moz-font-smoothing: antialiased;
 	-webkit-font-smoothing: antialiased;
 }
+
+.js-thHolidaysMoohaContainer{z-index:10000;pointer-events:none;position:absolute}
