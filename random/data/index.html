@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      
+<html class="no-js lt-ie9 lt-ie8 lt-ie7">
+<![endif]-->
+<!--[if IE 7]>         
+<html class="no-js lt-ie9 lt-ie8">
+<![endif]-->
+<!--[if IE 8]>         
+<html class="no-js lt-ie9">
+<![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DartPower Team LLC - Loading site engine...</title>
+    <meta name="description" content="DartPower Team LLC Site" />
+    <meta name="keywords" content="dartpower,dartpower team,dpt,dpteam,doom,brutal doom,zandronum,zdoom,gzdoom,simpson-nekek" />
+    <meta name="author" content="DartPower" />
+    <link rel="shortcut icon" href="https://dpteam.github.io/images/dpt_favicon.png" />
+    <meta name="theme-color" content="#0088FF" />
+    <link rel="stylesheet" type="text/css" href="https://dpteam.github.io/index-style.css" />
+    <link rel="stylesheet" type="text/css" href="https://dpteam.github.io/failsafe.css" />
+    <script src="https://dpteam.github.io/jquery-3.5.1.min.js"></script>
+    <script src="https://dpteam.github.io/failsafe.js?v=1.0.2"></script>
+    <script type="text/javascript">
+        var ss = 1;
+
+        function countdown() {
+            ss = ss - 1;
+            if (ss < 0) {
+                window.location = "https://dpteam.github.io/random/index.html";
+            } else {
+                window.setTimeout("countdown()", 5000);
+            }
+        }
+    </script>
+    <style>
+        html {
+            height: 100%;
+        }
+        
+        body {
+            /* min-height:100%; */
+            background-color: #009bff;
+            background-image: url('https://dpteam.github.io/images/background_loading.gif');
+            background-repeat: no-repeat;
+            background-position: center center;
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+</head>
+
+<body onload="countdown()">
+    <!--[if lt IE 7]>
+	<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+	<![endif]-->
+    <script>
+        $(function() {
+            $.failsafe({
+                checkUrl: 'failsafe.css',
+                checkInterval: 5000,
+                chargeThreshold: 80
+            });
+        });
+    </script>
+</body>
+
+</html>
