@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Password Game</title>
+  <style>
+	body {
+	  font-family: Arial, Helvetica, sans-serif;
+	  background-color: #f0f0f0;
+	  margin: 0;
+	  padding: 0;
+	}
+
+	h1 {
+	  text-align: center;
+	  margin-top: 20px;
+	  margin-bottom: 30px;
+	}
+
+	#passwordInput {
+	  display: flex;
+	  flex-direction: column;
+	  align-items: center;
+	  margin-top: 50px;
+	}
+
+	label {
+	  font-size: 18px;
+	  margin-bottom: 10px;
+	}
+
+	input[type="text"] {
+	  font-size: 16px;
+	  padding: 10px;
+	  border: 1px solid #ccc;
+	  border-radius: 5px;
+	  width: 300px;
+	}
+
+	#result {
+	  font-size: 18px;
+	  margin-top: 20px;
+	  text-align: center;
+	}
+
+	button {
+	  padding: 10px 20px;
+	  background-color: #4CAF50;
+	  color: white;
+	  border: none;
+	  border-radius: 5px;
+	  cursor: pointer;
+	  margin-top: 10px;
+	}
+
+	button:hover {
+	  background-color: #45a049;
+	}
+
+	/* Add more CSS styles based on your design preferences */
+  </style>
+</head>
+<body>
+  <h1>Password Game</h1>
+  <div id="passwordInput">
+    <label for="password">Enter Password:</label>
+    <input type="text" id="password" />
+  </div>
+  <div id="result"></div>
+
+  <script>
+	function checkPassword(password) {
+	  const resultDiv = document.getElementById('result');
+	  let isValid = true;
+	  let errorMessage = '';
+
+	  // Rule: Minimum Length (e.g., 8 characters)
+	  if (password.length < 8) {
+		isValid = false;
+		errorMessage += 'Password should be at least 8 characters long.\n';
+	  }
+
+	  // Rule: No Spaces
+	  if (/\s/.test(password)) {
+		isValid = false;
+		errorMessage += 'Password should not contain spaces.\n';
+	  }
+
+	  // Rule: No Repeated Characters
+	  if (/(\w)\1/.test(password)) {
+		isValid = false;
+		errorMessage += 'Password should not have repeated characters in a row.\n';
+	  }
+
+	  // Rule: No Sequential Characters
+	  if (/(abc|123)/i.test(password)) {
+		isValid = false;
+		errorMessage += 'Password should not have sequential characters.\n';
+	  }
+
+	  // Rule: At least one lowercase letter
+	  if (!/[a-z]/.test(password)) {
+		isValid = false;
+		errorMessage += 'Password should contain at least one lowercase letter.\n';
+	  }
+
+	  // Rule: Maximum Length (e.g., 20 characters)
+	  if (password.length > 20) {
+		isValid = false;
+		errorMessage += 'Password should not exceed 20 characters.\n';
+	  }
+
+	  // Rule: Chess Moves
+	  if (!/^([KQRBN]?[a-h][1-8]){2}$/.test(password)) {
+		isValid = false;
+		errorMessage += 'Password should follow a valid sequence of chess moves (e.g., "e2e4Nc3").\n';
+	  }
+
+	  // Rule: Mathematical Logic
+	  try {
+		eval(password);
+	  } catch (e) {
+		isValid = false;
+		errorMessage += 'Password should be a valid mathematical expression (e.g., "2*(3+5)-4").\n';
+	  }
+
+	  // Rule: Chemical Formula
+	  if (!/^[A-Z][a-z]?\d?$/.test(password)) {
+		isValid = false;
+		errorMessage += 'Password should resemble a chemical formula (e.g., "H2SO4").\n';
+	  }
+
+	  // Rule: Prime Numbers
+	  if (!/\d*[2357]\d*/.test(password)) {
+		isValid = false;
+		errorMessage += 'Password should include at least one prime number.\n';
+	  }
+
+	  // Rule: Fibonacci Sequence
+	  if (!/(Fibonacci)?\d+@\d+/.test(password)) {
+		isValid = false;
+		errorMessage += 'Password should contain a part of the Fibonacci sequence (e.g., "Fib5@8").\n';
+	  }
+
+	  // Add more rules and validations here based on your requirements
+
+	  // Replace "\n" with <br> for HTML line breaks
+	  errorMessage = errorMessage.replace(/\n/g, '<br>');
+
+	  // Display the result based on validation
+	  resultDiv.innerHTML = isValid ? 'Password is valid.' : 'Password is invalid.<br>' + errorMessage;
+	}
+
+    document.getElementById('password').addEventListener('input', function (event) {
+      const password = event.target.value;
+      checkPassword(password);
+    });
+  </script>
+</body>
+</html>
