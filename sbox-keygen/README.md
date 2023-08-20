@@ -35,6 +35,10 @@ Contributions are welcome! If you have any ideas, improvements, or bug fixes, fe
 
 This project is licensed under the WTFPL License.
 
+## Disclaimer
+
+This project is `fake`. This is a only generator with some fucking alghoritm which wont work lol.
+
 ---
 
 🚀 Developed with ❤️ by YOUT MOM...
