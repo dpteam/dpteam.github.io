@@ -1,0 +1,346 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>No Man's Sky Coordinate Generator</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(rgb(59, 88, 152), #637aad);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 1px 0px 0px #7a8eb9;
+            max-width: 600px;
+        }
+
+        .controls {
+            margin-bottom: 20px;
+        }
+
+        .feature-group {
+            columns: 2;
+            margin: 10px 0;
+        }
+
+        label {
+            display: block;
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        select {
+            width: 100%;
+            padding: 5px;
+            margin: 10px 0;
+        }
+
+        button {
+            box-shadow: inset 0px 1px 0px 0px #7a8eb9;
+            background: linear-gradient(to bottom, #637aad 5%, #5972a7 100%);
+            border: 1px solid #314179;
+            color: white;
+            padding: 8px 16px;
+            margin: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        button:hover {
+            background: linear-gradient(to bottom, #5972a7 5%, #637aad 100%);
+        }
+
+        .output textarea {
+            width: 95%;
+            height: 100px;
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #ddd;
+            font-family: monospace;
+        }
+
+        .flash {
+            animation: flash 0.5s;
+        }
+
+        @keyframes flash {
+            from { background: rgba(255, 255, 0, 0.3); }
+            to { background: transparent; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>NMS Coordinate Generator</h2>
+        
+        <div class="controls">
+            <div class="feature-group">
+                <label><input type="checkbox" data-feature="1"> Paradise Planet</label>
+                <label><input type="checkbox" data-feature="8"> Water World</label>
+                <label><input type="checkbox" data-feature="64"> Lush Biome</label>
+                <label><input type="checkbox" data-feature="128"> Dead Planet</label>
+                <label><input type="checkbox" data-feature="256"> Anomaly</label>
+            </div>
+
+            <select id="special">
+                <option value="none">Random Generation</option>
+                <option value="blackHole">Black Hole</option>
+                <option value="atlasStation">Atlas Station</option>
+                <option value="upperPole">Galactic Upper Pole</option>
+                <option value="nearCenter">Near Galaxy Center</option>
+                <option value="glitched">Glitched Coordinates</option>
+            </select>
+
+            <div>
+                <button onclick="generate()">Generate Coordinates</button>
+                <button onclick="copyToClipboard()">Copy to Clipboard</button>
+            </div>
+        </div>
+
+        <div class="output">
+            <textarea id="output" readonly></textarea>
+        </div>
+    </div>
+
+    <script>
+        const GalacticFeature = {
+            None: 0,
+            ParadisePlanet: 1,
+            ExtremeWeather: 2,
+            HostileSentinels: 4,
+            WaterWorld: 8,
+            AtlasStation: 16,
+            BlackHole: 32,
+            LushBiome: 64,
+            DeadPlanet: 128,
+            Anomaly: 256
+        };
+
+        class GalacticCoordinate {
+            constructor(scannerId, x, y, z, solarSystemIndex, planetIndex) {
+                this.ScannerId = scannerId;
+                this.X = x;
+                this.Y = y;
+                this.Z = z;
+                this.SolarSystemIndex = solarSystemIndex;
+                this.PlanetIndex = planetIndex;
+                this.validate();
+            }
+
+            static generateGlitched() {
+                return new GalacticCoordinate(
+                    'GL1TCH', // Специальный идентификатор
+                    0x07FF,   // X = 2047
+                    0x007F,   // Y = 127
+                    0x07FF,   // Z = 2047
+                    0x0001,   // System Index (0 недопустим, используем минимальное)
+                    0         // Planet Index
+                );
+            }
+
+            validate() {
+                // Временное отключение проверки для Glitched coordinates
+                if (this.ScannerId === 'GL1TCH') return;
+
+                if (this.X < 0 || this.X > 0xFFF) throw new Error("Invalid X coordinate");
+                if (this.Y < 0 || this.Y > 0xFF) throw new Error("Invalid Y coordinate");
+                if (this.Z < 0 || this.Z > 0xFFF) throw new Error("Invalid Z coordinate");
+                if (this.SolarSystemIndex < 1 || this.SolarSystemIndex > 0x2FF) throw new Error("Invalid System Index");
+                if (this.PlanetIndex < 0 || this.PlanetIndex > 0xF) throw new Error("Invalid Planet Index");
+                if (this.ScannerId.length < 4 || this.ScannerId.length > 5) throw new Error("Invalid Scanner ID");
+            }
+
+            toGalacticString() {
+                if (this.ScannerId === 'GL1TCH') {
+                    return '07FF:007F:07FF:0000'; // Фиксированный формат для глитча
+                }
+                return `${this.X.toString(16).padStart(4, '0')}:` +
+                       `${this.Y.toString(16).padStart(4, '0')}:` +
+                       `${this.Z.toString(16).padStart(4, '0')}:` +
+                       `${this.SolarSystemIndex.toString(16).padStart(4, '0')}`;
+            }
+
+            toPortalCode() {
+                const portalX = this.convertAxis(this.X, 0x7FF, 0x801);
+                const portalY = (this.Y - 0x7F + 0x100) % 0x100;
+                const portalZ = this.convertAxis(this.Z, 0x7FF, 0x801);
+                
+                return `${this.PlanetIndex.toString(16)}` +
+                       `${this.SolarSystemIndex.toString(16).padStart(3, '0')}` +
+                       `${portalY.toString(16).padStart(2, '0')}` +
+                       `${portalZ.toString(16).padStart(3, '0')}` +
+                       `${portalX.toString(16).padStart(3, '0')}`;
+            }
+
+            convertAxis(value, threshold, delta) {
+                return value <= threshold ? value + delta : value - (delta - 1);
+            }
+
+            static generateRandom(features = GalacticFeature.None) {
+                for (let i = 0; i < 1000; i++) {
+                    try {
+                        const coord = GalacticCoordinate.attemptGeneration(features);
+                        if (GalacticCoordinate.checkFeatures(coord, features)) return coord;
+                    } catch {}
+                }
+                throw new Error("Could not generate coordinates with requested features");
+            }
+
+            static attemptGeneration(features) {
+                if (features & GalacticFeature.AtlasStation) return GalacticCoordinate.generateAtlasStation();
+                if (features & GalacticFeature.BlackHole) return GalacticCoordinate.generateBlackHole();
+
+                return new GalacticCoordinate(
+                    GalacticCoordinate.generateRandomScannerId(),
+                    Math.floor(Math.random() * 0x1000),
+                    Math.floor(Math.random() * 0x100),
+                    Math.floor(Math.random() * 0x1000),
+                    GalacticCoordinate.generateSolarSystemIndex(features),
+                    GalacticCoordinate.generatePlanetIndex(features)
+                );
+            }
+
+            static generateSolarSystemIndex(features) {
+                if (features & GalacticFeature.Anomaly) {
+                    return Math.floor(Math.random() * (0x200 - 0x100)) + 0x100;
+                }
+                return Math.floor(Math.random() * 0x2FF) + 1;
+            }
+
+            static generatePlanetIndex(features) {
+                if (features & GalacticFeature.ParadisePlanet) return Math.floor(Math.random() * 3) + 3;
+                if (features & GalacticFeature.DeadPlanet) return Math.floor(Math.random() * 2);
+                return Math.floor(Math.random() * 0x10);
+            }
+
+            static checkFeatures(coord, features) {
+                let valid = true;
+                if (features & GalacticFeature.ParadisePlanet) valid &&= GalacticCoordinate.isParadisePlanet(coord);
+                if (features & GalacticFeature.WaterWorld) valid &&= GalacticCoordinate.isWaterWorld(coord);
+                if (features & GalacticFeature.LushBiome) valid &&= GalacticCoordinate.isLushBiome(coord);
+                return valid;
+            }
+
+            static isParadisePlanet(coord) {
+                return (coord.X % 0x100) > 0xA0 && (coord.Z % 0x100) < 0x50 && coord.PlanetIndex > 2;
+            }
+
+            static isWaterWorld(coord) {
+                return (coord.Y % 0x10) === 0x5 && (coord.Z & 0xF0) === 0x70;
+            }
+
+            static isLushBiome(coord) {
+                return (coord.SolarSystemIndex % 0x10) === 0x3 && (coord.X ^ coord.Z) < 0x100;
+            }
+
+            static generateBlackHole() {
+                return new GalacticCoordinate(
+                    'BH' + GalacticCoordinate.generateRandomString(3),
+                    Math.floor(Math.random() * 0x1000),
+                    Math.floor(Math.random() * 0x100),
+                    Math.floor(Math.random() * 0x1000),
+                    0x79,
+                    Math.floor(Math.random() * 0x10)
+                );
+            }
+
+            static generateAtlasStation() {
+                return new GalacticCoordinate(
+                    'ATLAS', // Исправлено: убрали добавление случайных символов
+                    Math.floor(Math.random() * 0x1000),
+                    Math.floor(Math.random() * 0x100),
+                    Math.floor(Math.random() * 0x1000),
+                    0x7A,    // 0x7A = 122 (валидное значение)
+                    Math.floor(Math.random() * 0x10)
+                );
+            }
+
+            static generateUpperPole() {
+                return new GalacticCoordinate(
+                    GalacticCoordinate.generateRandomScannerId(),
+                    0x07FF, 0x00FE, 0x07FF,
+                    0x0001, 1
+                );
+            }
+
+            static generateNearCenter() {
+                return new GalacticCoordinate(
+                    GalacticCoordinate.generateRandomScannerId(),
+                    0x0104, 
+                    0x0000, 
+                    0x0500,
+                    0x01FF, // Исправлено: было 0x0500 (1280), стало 0x01FF (511)
+                    1
+                );
+            }
+
+            static generateRandomScannerId() {
+                return GalacticCoordinate.generateRandomString(Math.random() < 0.5 ? 4 : 5);
+            }
+
+            static generateRandomString(length) {
+                const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                return Array.from({length}, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+            }
+        }
+
+        function getSelectedFeatures() {
+            let features = GalacticFeature.None;
+            document.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
+                features |= parseInt(checkbox.dataset.feature);
+            });
+            return features;
+        }
+
+        function generate() {
+            try {
+                const special = document.getElementById('special').value;
+                let coord;
+
+                if (special === 'blackHole') coord = GalacticCoordinate.generateBlackHole();
+                else if (special === 'atlasStation') coord = GalacticCoordinate.generateAtlasStation();
+                else if (special === 'upperPole') coord = GalacticCoordinate.generateUpperPole();
+                else if (special === 'nearCenter') coord = GalacticCoordinate.generateNearCenter();
+                else if (special === 'glitched') coord = GalacticCoordinate.generateGlitched();
+                else coord = GalacticCoordinate.generateRandom(getSelectedFeatures());
+
+                const output = `Galactic Format: ${coord.toGalacticString()}\n` +
+                              `Portal Code:     ${coord.toPortalCode().toUpperCase()}\n` +
+                              `Planet Index:    ${coord.PlanetIndex + 1}\n` +
+                              `System Index:    0x${coord.SolarSystemIndex.toString(16).padStart(3, '0')}\n` +
+                              `Scanner ID:      ${coord.ScannerId}`;
+
+                document.getElementById('output').value = output;
+            } catch (error) {
+                alert(error.message);
+            }
+        }
+
+        function copyToClipboard() {
+            const output = document.getElementById('output');
+            navigator.clipboard.writeText(output.value)
+                .then(() => {
+                    output.classList.add('flash');
+                    setTimeout(() => output.classList.remove('flash'), 200);
+                })
+                .catch(err => console.error('Failed to copy:', err));
+        }
+    </script>
+</body>
+</html>
