@@ -1,5 +1,3 @@
-Mirror from simpson-nekek.narord.ru / dartpower.tk 
+Mirror from https://simpson-nekek.narod.ru 
 
 Link: https://dpteam.github.io 
-
-Mirror: https://dartpower.github.io 
